@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import AIResumeBuilder from './AIResumeBuilder';
+import { supabase, Job as SupabaseJob } from '../lib/supabase';
 import { 
   User, 
   FileText, 
@@ -21,17 +22,9 @@ interface JobSeekerDashboardProps {
   onBack: () => void;
 }
 
-interface Job {
-  id: string;
-  title: string;
-  company: string;
-  location: string;
-  type: string;
-  salary: string;
-  posted: string;
-  description: string;
-  requirements: string[];
-  tags: string[];
+// Use the Job interface from supabase.ts and extend it for display
+interface Job extends SupabaseJob {
+  posted?: string; // For display purposes
 }
 
 interface ResumeData {
@@ -62,45 +55,54 @@ const JobSeekerDashboard: React.FC<JobSeekerDashboardProps> = ({ onBack }) => {
   const [selectedJob, setSelectedJob] = useState<Job | null>(null);
   const [showAIBuilder, setShowAIBuilder] = useState(false);
   const [savedResume, setSavedResume] = useState<ResumeData | null>(null);
+  const [jobs, setJobs] = useState<Job[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const mockJobs: Job[] = [
-    {
-      id: '1',
-      title: 'Senior Frontend Developer',
-      company: 'TechCorp',
-      location: 'San Francisco, CA',
-      type: 'Full-time',
-      salary: '$120k - $160k',
-      posted: '2 days ago',
-      description: 'We are looking for a talented Senior Frontend Developer to join our dynamic team. You will be responsible for building and maintaining high-quality web applications using modern technologies.',
-      requirements: ['React', 'TypeScript', 'Node.js', '5+ years experience'],
-      tags: ['Remote', 'Tech', 'Senior Level']
-    },
-    {
-      id: '2',
-      title: 'UX/UI Designer',
-      company: 'DesignStudio',
-      location: 'New York, NY',
-      type: 'Full-time',
-      salary: '$80k - $110k',
-      posted: '1 week ago',
-      description: 'Join our creative team as a UX/UI Designer. Create intuitive and visually appealing user interfaces for web and mobile applications.',
-      requirements: ['Figma', 'Adobe Creative Suite', 'User Research', '3+ years experience'],
-      tags: ['Design', 'Creative', 'Hybrid']
-    },
-    {
-      id: '3',
-      title: 'Data Scientist',
-      company: 'DataInsights',
-      location: 'Austin, TX',
-      type: 'Contract',
-      salary: '$90k - $130k',
-      posted: '3 days ago',
-      description: 'Analyze complex datasets to derive actionable insights. Work with machine learning models and statistical analysis.',
-      requirements: ['Python', 'SQL', 'Machine Learning', 'Statistics'],
-      tags: ['Data', 'Analytics', 'Remote']
+  React.useEffect(() => {
+    fetchJobs();
+  }, []);
+
+  const fetchJobs = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('jobs')
+        .select('*')
+        .eq('is_active', true)
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+      
+      // Transform the data to include the 'posted' field for display
+      const transformedJobs = (data || []).map(job => ({
+        ...job,
+        posted: getTimeAgo(job.created_at)
+      }));
+      
+      setJobs(transformedJobs);
+    } catch (error) {
+      console.error('Error fetching jobs:', error);
+    } finally {
+      setLoading(false);
     }
-  ];
+  };
+
+  const getTimeAgo = (dateString: string) => {
+    const date = new Date(dateString);
+    const now = new Date();
+    const diffInHours = Math.floor((now.getTime() - date.getTime()) / (1000 * 60 * 60));
+    
+    if (diffInHours < 24) {
+      return diffInHours === 0 ? 'Just now' : `${diffInHours} hour${diffInHours > 1 ? 's' : ''} ago`;
+    } else {
+      const diffInDays = Math.floor(diffInHours / 24);
+      if (diffInDays < 7) {
+        return `${diffInDays} day${diffInDays > 1 ? 's' : ''} ago`;
+      } else {
+        const diffInWeeks = Math.floor(diffInDays / 7);
+        return `${diffInWeeks} week${diffInWeeks > 1 ? 's' : ''} ago`;
+      }
+    }
+  };
 
   const handleSaveResume = (resumeData: ResumeData) => {
     setSavedResume(resumeData);
@@ -189,7 +191,18 @@ const JobSeekerDashboard: React.FC<JobSeekerDashboardProps> = ({ onBack }) => {
       {/* Job Listings */}
       <div className="grid lg:grid-cols-2 gap-6">
         <div className="space-y-4">
-          {mockJobs.map((job) => (
+          {loading ? (
+            <div className="flex items-center justify-center py-12">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+            </div>
+          ) : jobs.length === 0 ? (
+            <div className="text-center py-12">
+              <Briefcase className="w-16 h-16 text-gray-400 mx-auto mb-4" />
+              <h3 className="text-xl font-semibold text-gray-600 mb-2">No jobs available</h3>
+              <p className="text-gray-500">Check back later for new opportunities</p>
+            </div>
+          ) : (
+            jobs.map((job) => (
             <div
               key={job.id}
               onClick={() => setSelectedJob(job)}
@@ -232,7 +245,8 @@ const JobSeekerDashboard: React.FC<JobSeekerDashboardProps> = ({ onBack }) => {
               
               <p className="text-sm text-gray-500">{job.posted}</p>
             </div>
-          ))}
+          ))
+          )}
         </div>
 
         {/* Job Details */}
