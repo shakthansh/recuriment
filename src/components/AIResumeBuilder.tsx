@@ -120,7 +120,13 @@ const AIResumeBuilder: React.FC<AIResumeBuilderProps> = ({ onSave, onBack }) => 
       
     } catch (error) {
       console.error('Error generating resume:', error);
-      alert('Failed to generate resume. Please try again.');
+      // Check if it's a 503 overload error
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      if (errorMessage.includes('503') || errorMessage.includes('overloaded')) {
+        alert('The AI model is currently overloaded. Please try again in a few moments.');
+      } else {
+        alert('Failed to generate resume. Please try again.');
+      }
     } finally {
       setIsGenerating(false);
     }
