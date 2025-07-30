@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { GoogleGenerativeAI } from '@google/generative-ai';
 import { supabase, Job } from '../lib/supabase';
 import { 
   Building2, 
@@ -16,7 +17,9 @@ import {
   Save,
   X,
   AlertCircle,
-  CheckCircle
+  CheckCircle,
+  Sparkles,
+  Loader2
 } from 'lucide-react';
 
 interface EmployerDashboardProps {
@@ -43,6 +46,10 @@ const EmployerDashboard: React.FC<EmployerDashboardProps> = ({ onBack }) => {
   const [editingJob, setEditingJob] = useState<Job | null>(null);
   const [user, setUser] = useState<any>(null);
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+
+  // AI job description generator state
+  const [isGeneratingDescription, setIsGeneratingDescription] = useState(false);
+  const genAI = new GoogleGenerativeAI('AIzaSyAMqMgvCu-bM7rvZUDjbjDXCYoXT6iAL34');
 
   const [formData, setFormData] = useState<JobFormData>({
     title: '',
@@ -95,6 +102,56 @@ const EmployerDashboard: React.FC<EmployerDashboardProps> = ({ onBack }) => {
   const showMessage = (type: 'success' | 'error', text: string) => {
     setMessage({ type, text });
     setTimeout(() => setMessage(null), 5000);
+  };
+
+  const generateJobDescription = async () => {
+    if (!formData.title || !formData.company || !formData.location || !formData.salary) {
+      showMessage('error', 'Please fill in job title, company, location, and salary range first');
+      return;
+    }
+
+    setIsGeneratingDescription(true);
+    try {
+      const prompt = `
+        Create a professional and compelling job description for the following position:
+        
+        Job Title: ${formData.title}
+        Company: ${formData.company}
+        Location: ${formData.location}
+        Salary Range: ${formData.salary}
+        Employment Type: ${formData.type}
+        
+        Please create a comprehensive job description that includes:
+        1. A brief company overview (you can make reasonable assumptions about the company)
+        2. Role overview and key responsibilities
+        3. What we're looking for in a candidate
+        4. What the company offers
+        5. Growth opportunities
+        
+        Make it engaging, professional, and attractive to potential candidates. The description should be 3-4 paragraphs long and highlight why this is an exciting opportunity.
+        
+        Do not include requirements or skills list as those will be added separately.
+      `;
+
+      const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+      const result = await model.generateContent(prompt);
+      const response = await result.response;
+      const generatedDescription = response.text();
+      
+      setFormData(prev => ({ ...prev, description: generatedDescription }));
+      showMessage('success', 'Job description generated successfully!');
+      
+    } catch (error) {
+      console.error('Error generating job description:', error);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      if (errorMessage.includes('503') || errorMessage.includes('overloaded')) {
+        showMessage('error', 'The AI model is currently overloaded. Please try again in a few moments.');
+      } else {
+        showMessage('error', 'Failed to generate job description. Please try again.');
+      }
+    } finally {
+      setIsGeneratingDescription(false);
+    }
   };
 
   const handleInputChange = (field: keyof JobFormData, value: string) => {
@@ -345,13 +402,34 @@ const EmployerDashboard: React.FC<EmployerDashboardProps> = ({ onBack }) => {
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">Job Description *</label>
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-sm text-gray-500">Describe the role and what makes it exciting</span>
+              <button
+                type="button"
+                onClick={generateJobDescription}
+                disabled={isGeneratingDescription || !formData.title || !formData.company || !formData.location || !formData.salary}
+                className="flex items-center space-x-2 px-3 py-1.5 bg-gradient-to-r from-purple-600 to-pink-600 text-white text-sm rounded-lg font-medium hover:from-purple-700 hover:to-pink-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {isGeneratingDescription ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    <span>Generating...</span>
+                  </>
+                ) : (
+                  <>
+                    <Sparkles className="w-4 h-4" />
+                    <span>Generate with AI</span>
+                  </>
+                )}
+              </button>
+            </div>
             <textarea
               required
               rows={4}
               value={formData.description}
               onChange={(e) => handleInputChange('description', e.target.value)}
               className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-              placeholder="Describe the role, responsibilities, and what makes this opportunity exciting..."
+              placeholder="Describe the role, responsibilities, and what makes this opportunity exciting... or use AI to generate automatically"
             />
           </div>
 
