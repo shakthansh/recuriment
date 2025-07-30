@@ -182,65 +182,65 @@ const AIResumeBuilder: React.FC<AIResumeBuilderProps> = ({ onSave, onBack }) => 
   };
 
   const renderStep1 = () => (
-    <div className="space-y-6">
-      <div className="text-center mb-8">
-        <div className="w-16 h-16 bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
-          <User className="w-8 h-8 text-white" />
+    <div className="space-y-4 md:space-y-6">
+      <div className="text-center mb-6 md:mb-8">
+        <div className="w-12 h-12 md:w-16 md:h-16 bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl flex items-center justify-center mx-auto mb-3 md:mb-4">
+          <User className="w-6 h-6 md:w-8 md:h-8 text-white" />
         </div>
-        <h2 className="text-2xl font-bold text-gray-800 mb-2">Personal Information</h2>
-        <p className="text-gray-600">Let's start with your basic details</p>
+        <h2 className="text-xl md:text-2xl font-bold text-gray-800 mb-2">Personal Information</h2>
+        <p className="text-sm md:text-base text-gray-600 px-4">Let's start with your basic details</p>
       </div>
 
-      <div className="grid md:grid-cols-2 gap-6">
+      <div className="grid md:grid-cols-2 gap-4 md:gap-6">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">Full Name *</label>
+          <label className="block text-sm md:text-base font-medium text-gray-700 mb-2">Full Name *</label>
           <input
             type="text"
             value={formData.name}
             onChange={(e) => handleInputChange('name', e.target.value)}
-            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-base"
             placeholder="John Doe"
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">Email *</label>
+          <label className="block text-sm md:text-base font-medium text-gray-700 mb-2">Email *</label>
           <input
             type="email"
             value={formData.email}
             onChange={(e) => handleInputChange('email', e.target.value)}
-            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-base"
             placeholder="john@example.com"
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">Phone *</label>
+          <label className="block text-sm md:text-base font-medium text-gray-700 mb-2">Phone *</label>
           <input
             type="tel"
             value={formData.phone}
             onChange={(e) => handleInputChange('phone', e.target.value)}
-            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-base"
             placeholder="+1 (555) 123-4567"
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">Location *</label>
+          <label className="block text-sm md:text-base font-medium text-gray-700 mb-2">Location *</label>
           <input
             type="text"
             value={formData.location}
             onChange={(e) => handleInputChange('location', e.target.value)}
-            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-base"
             placeholder="San Francisco, CA"
           />
         </div>
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">Target Role *</label>
+        <label className="block text-sm md:text-base font-medium text-gray-700 mb-2">Target Role *</label>
         <input
           type="text"
           value={formData.targetRole}
           onChange={(e) => handleInputChange('targetRole', e.target.value)}
-          className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+          className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-base"
           placeholder="Senior Frontend Developer"
         />
       </div>
@@ -248,55 +248,55 @@ const AIResumeBuilder: React.FC<AIResumeBuilderProps> = ({ onSave, onBack }) => 
   );
 
   const renderStep2 = () => (
-    <div className="space-y-6">
-      <div className="text-center mb-8">
-        <div className="w-16 h-16 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
-          <Briefcase className="w-8 h-8 text-white" />
+    <div className="space-y-4 md:space-y-6">
+      <div className="text-center mb-6 md:mb-8">
+        <div className="w-12 h-12 md:w-16 md:h-16 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-3 md:mb-4">
+          <Briefcase className="w-6 h-6 md:w-8 md:h-8 text-white" />
         </div>
-        <h2 className="text-2xl font-bold text-gray-800 mb-2">Professional Details</h2>
-        <p className="text-gray-600">Tell us about your experience and skills</p>
+        <h2 className="text-xl md:text-2xl font-bold text-gray-800 mb-2">Professional Details</h2>
+        <p className="text-sm md:text-base text-gray-600 px-4">Tell us about your experience and skills</p>
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">Work Experience *</label>
+        <label className="block text-sm md:text-base font-medium text-gray-700 mb-2">Work Experience *</label>
         <textarea
           rows={4}
           value={formData.experience}
           onChange={(e) => handleInputChange('experience', e.target.value)}
-          className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+          className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-base"
           placeholder="Describe your work experience, including job titles, companies, dates, and key responsibilities..."
         />
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">Education *</label>
+        <label className="block text-sm md:text-base font-medium text-gray-700 mb-2">Education *</label>
         <textarea
           rows={3}
           value={formData.education}
           onChange={(e) => handleInputChange('education', e.target.value)}
-          className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+          className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-base"
           placeholder="List your educational background, degrees, institutions, and graduation years..."
         />
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">Skills *</label>
+        <label className="block text-sm md:text-base font-medium text-gray-700 mb-2">Skills *</label>
         <textarea
           rows={3}
           value={formData.skills}
           onChange={(e) => handleInputChange('skills', e.target.value)}
-          className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+          className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-base"
           placeholder="List your technical and soft skills, programming languages, tools, etc..."
         />
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">Achievements (Optional)</label>
+        <label className="block text-sm md:text-base font-medium text-gray-700 mb-2">Achievements (Optional)</label>
         <textarea
           rows={3}
           value={formData.achievements}
           onChange={(e) => handleInputChange('achievements', e.target.value)}
-          className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+          className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-base"
           placeholder="Notable achievements, awards, certifications, projects..."
         />
       </div>
@@ -304,21 +304,21 @@ const AIResumeBuilder: React.FC<AIResumeBuilderProps> = ({ onSave, onBack }) => 
   );
 
   const renderStep3 = () => (
-    <div className="space-y-6">
-      <div className="text-center mb-8">
-        <div className="w-16 h-16 bg-gradient-to-r from-green-600 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
-          <Award className="w-8 h-8 text-white" />
+    <div className="space-y-4 md:space-y-6">
+      <div className="text-center mb-6 md:mb-8">
+        <div className="w-12 h-12 md:w-16 md:h-16 bg-gradient-to-r from-green-600 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-3 md:mb-4">
+          <Award className="w-6 h-6 md:w-8 md:h-8 text-white" />
         </div>
-        <h2 className="text-2xl font-bold text-gray-800 mb-2">Your AI-Generated Resume</h2>
-        <p className="text-gray-600">Review and customize your professional resume</p>
+        <h2 className="text-xl md:text-2xl font-bold text-gray-800 mb-2">Your AI-Generated Resume</h2>
+        <p className="text-sm md:text-base text-gray-600 px-4">Review and customize your professional resume</p>
       </div>
 
       {generatedResume && (
-        <div className="bg-white border border-gray-200 rounded-xl p-8 shadow-sm resume-content">
+        <div className="bg-white border border-gray-200 rounded-xl p-4 md:p-8 shadow-sm resume-content">
           {/* Header */}
-          <div className="text-center mb-8 pb-6 border-b border-gray-200">
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">{generatedResume.personalInfo.name}</h1>
-            <div className="flex flex-wrap justify-center gap-4 text-gray-600">
+          <div className="text-center mb-6 md:mb-8 pb-4 md:pb-6 border-b border-gray-200">
+            <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">{generatedResume.personalInfo.name}</h1>
+            <div className="flex flex-wrap justify-center gap-2 md:gap-4 text-sm md:text-base text-gray-600">
               <span>{generatedResume.personalInfo.email}</span>
               <span>•</span>
               <span>{generatedResume.personalInfo.phone}</span>
@@ -328,43 +328,43 @@ const AIResumeBuilder: React.FC<AIResumeBuilderProps> = ({ onSave, onBack }) => 
           </div>
 
           {/* Summary */}
-          <div className="mb-8">
-            <h2 className="text-xl font-bold text-gray-900 mb-3 flex items-center">
-              <User className="w-5 h-5 mr-2 text-blue-600" />
+          <div className="mb-6 md:mb-8">
+            <h2 className="text-lg md:text-xl font-bold text-gray-900 mb-3 flex items-center">
+              <User className="w-4 h-4 md:w-5 md:h-5 mr-2 text-blue-600" />
               Professional Summary
             </h2>
-            <p className="text-gray-700 leading-relaxed">{generatedResume.personalInfo.summary}</p>
+            <p className="text-sm md:text-base text-gray-700 leading-relaxed">{generatedResume.personalInfo.summary}</p>
           </div>
 
           {/* Experience */}
-          <div className="mb-8">
-            <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center">
-              <Briefcase className="w-5 h-5 mr-2 text-blue-600" />
+          <div className="mb-6 md:mb-8">
+            <h2 className="text-lg md:text-xl font-bold text-gray-900 mb-4 flex items-center">
+              <Briefcase className="w-4 h-4 md:w-5 md:h-5 mr-2 text-blue-600" />
               Experience
             </h2>
-            <div className="space-y-6">
+            <div className="space-y-4 md:space-y-6">
               {generatedResume.experience.map((exp, index) => (
-                <div key={index} className="border-l-4 border-blue-600 pl-6">
-                  <h3 className="text-lg font-semibold text-gray-900">{exp.title}</h3>
-                  <p className="text-blue-600 font-medium">{exp.company}</p>
+                <div key={index} className="border-l-4 border-blue-600 pl-4 md:pl-6">
+                  <h3 className="text-base md:text-lg font-semibold text-gray-900">{exp.title}</h3>
+                  <p className="text-sm md:text-base text-blue-600 font-medium">{exp.company}</p>
                   <p className="text-sm text-gray-500 mb-2">{exp.duration}</p>
-                  <p className="text-gray-700">{exp.description}</p>
+                  <p className="text-sm md:text-base text-gray-700">{exp.description}</p>
                 </div>
               ))}
             </div>
           </div>
 
           {/* Education */}
-          <div className="mb-8">
-            <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center">
-              <GraduationCap className="w-5 h-5 mr-2 text-blue-600" />
+          <div className="mb-6 md:mb-8">
+            <h2 className="text-lg md:text-xl font-bold text-gray-900 mb-4 flex items-center">
+              <GraduationCap className="w-4 h-4 md:w-5 md:h-5 mr-2 text-blue-600" />
               Education
             </h2>
             <div className="space-y-4">
               {generatedResume.education.map((edu, index) => (
-                <div key={index} className="border-l-4 border-green-600 pl-6">
-                  <h3 className="text-lg font-semibold text-gray-900">{edu.degree}</h3>
-                  <p className="text-green-600 font-medium">{edu.school}</p>
+                <div key={index} className="border-l-4 border-green-600 pl-4 md:pl-6">
+                  <h3 className="text-base md:text-lg font-semibold text-gray-900">{edu.degree}</h3>
+                  <p className="text-sm md:text-base text-green-600 font-medium">{edu.school}</p>
                   <p className="text-sm text-gray-500">{edu.year}</p>
                 </div>
               ))}
@@ -373,13 +373,13 @@ const AIResumeBuilder: React.FC<AIResumeBuilderProps> = ({ onSave, onBack }) => 
 
           {/* Skills */}
           <div>
-            <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center">
-              <Award className="w-5 h-5 mr-2 text-blue-600" />
+            <h2 className="text-lg md:text-xl font-bold text-gray-900 mb-4 flex items-center">
+              <Award className="w-4 h-4 md:w-5 md:h-5 mr-2 text-blue-600" />
               Skills
             </h2>
             <div className="flex flex-wrap gap-2">
               {generatedResume.skills.map((skill, index) => (
-                <span key={index} className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium">
+                <span key={index} className="px-2 md:px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-xs md:text-sm font-medium">
                   {skill}
                 </span>
               ))}
@@ -394,12 +394,12 @@ const AIResumeBuilder: React.FC<AIResumeBuilderProps> = ({ onSave, onBack }) => 
   const isStep2Valid = formData.experience && formData.education && formData.skills;
 
   return (
-    <div className="max-w-4xl mx-auto">
+    <div className="max-w-4xl mx-auto px-4">
       {/* Progress Bar */}
-      <div className="mb-8">
+      <div className="mb-6 md:mb-8">
         <div className="flex items-center justify-between mb-4">
-          <span className="text-sm font-medium text-gray-600">Step {currentStep} of 3</span>
-          <span className="text-sm font-medium text-gray-600">{Math.round((currentStep / 3) * 100)}% Complete</span>
+          <span className="text-xs md:text-sm font-medium text-gray-600">Step {currentStep} of 3</span>
+          <span className="text-xs md:text-sm font-medium text-gray-600">{Math.round((currentStep / 3) * 100)}% Complete</span>
         </div>
         <div className="w-full bg-gray-200 rounded-full h-2">
           <div 
@@ -410,26 +410,26 @@ const AIResumeBuilder: React.FC<AIResumeBuilderProps> = ({ onSave, onBack }) => 
       </div>
 
       {/* Content */}
-      <div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-8">
+      <div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-4 md:p-8">
         {currentStep === 1 && renderStep1()}
         {currentStep === 2 && renderStep2()}
         {currentStep === 3 && renderStep3()}
 
         {/* Navigation */}
-        <div className="flex justify-between items-center mt-8 pt-6 border-t border-gray-200">
+        <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mt-6 md:mt-8 pt-4 md:pt-6 border-t border-gray-200">
           <button
             onClick={currentStep === 1 ? onBack : () => setCurrentStep(currentStep - 1)}
-            className="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+            className="w-full sm:w-auto px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors min-h-[48px]"
           >
             {currentStep === 1 ? 'Back to Resume' : 'Previous'}
           </button>
 
-          <div className="flex space-x-4">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full sm:w-auto">
             {currentStep === 1 && (
               <button
                 onClick={() => setCurrentStep(2)}
                 disabled={!isStep1Valid}
-                className="px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed hover:from-purple-700 hover:to-blue-700 transition-all"
+                className="w-full sm:w-auto px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed hover:from-purple-700 hover:to-blue-700 transition-all min-h-[48px]"
               >
                 Next Step
               </button>
@@ -439,7 +439,7 @@ const AIResumeBuilder: React.FC<AIResumeBuilderProps> = ({ onSave, onBack }) => 
               <button
                 onClick={generateResume}
                 disabled={!isStep2Valid || isGenerating}
-                className="px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed hover:from-purple-700 hover:to-blue-700 transition-all flex items-center space-x-2"
+                className="w-full sm:w-auto px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed hover:from-purple-700 hover:to-blue-700 transition-all flex items-center justify-center space-x-2 min-h-[48px]"
               >
                 {isGenerating ? (
                   <>
@@ -456,17 +456,17 @@ const AIResumeBuilder: React.FC<AIResumeBuilderProps> = ({ onSave, onBack }) => 
             )}
 
             {currentStep === 3 && generatedResume && (
-              <div className="flex space-x-4">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full sm:w-auto">
                 <button
                   onClick={() => onSave(generatedResume)}
-                  className="px-6 py-3 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-lg font-semibold hover:from-green-700 hover:to-green-800 transition-all flex items-center space-x-2"
+                  className="w-full sm:w-auto px-6 py-3 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-lg font-semibold hover:from-green-700 hover:to-green-800 transition-all flex items-center justify-center space-x-2 min-h-[48px]"
                 >
                   <Save className="w-5 h-5" />
                   <span>Save Resume</span>
                 </button>
                 <button
                   onClick={downloadPDF}
-                  className="px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg font-semibold hover:from-blue-700 hover:to-blue-800 transition-all flex items-center space-x-2"
+                  className="w-full sm:w-auto px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg font-semibold hover:from-blue-700 hover:to-blue-800 transition-all flex items-center justify-center space-x-2 min-h-[48px]"
                 >
                   <Download className="w-5 h-5" />
                   <span>Download PDF</span>
